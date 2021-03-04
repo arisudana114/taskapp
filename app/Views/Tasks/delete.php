@@ -8,10 +8,10 @@
 
 <p>Are you sure?</p>
 
-<?=  form_open("/tasks/delete/" . $task->id) ?>
+<?= form_open("/tasks/delete/" . $task->id) ?>
 
-    <button>Yes</button>
-    <a href="<?= site_url('/tasks/show/' . $task->id) ?>">Cancel</a>
+<button>Yes</button>
+<a href="<?= site_url('/tasks/show/' . $task->id) ?>">Cancel</a>
 
 </form>
 

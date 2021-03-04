@@ -7,18 +7,25 @@ use App\Entities\Task;
 class Tasks extends BaseController
 {
     private $model;
+    private $current_user;
 
     public function __construct()
     {
-       $this->model = new \App\Models\TaskModel;
+        $this->model = new \App\Models\TaskModel;
+        $this->current_user = service('auth')->getCurrentUser();
     }
 
     public function index()
     {
+        $data = $this->model->paginateTasksByUserId($this->current_user->id);
 
-        $data = $this->model->findAll();
-
-        return view("Tasks/index", ['tasks' => $data]);
+        return view(
+            "Tasks/index",
+            [
+                'tasks' => $data,
+                'pager' => $this->model->pager
+            ]
+        );
     }
 
     public function show($id)
@@ -30,7 +37,7 @@ class Tasks extends BaseController
         ]);
     }
 
-    public function new()                                                                                                                                                         
+    public function new()
     {
         $task = new Task;
 
@@ -42,6 +49,8 @@ class Tasks extends BaseController
     public function create()
     {
         $task = new Task($this->request->getPost());
+
+        $task->user_id = $this->current_user->id;
 
         if ($this->model->insert($task)) {
 
@@ -70,18 +79,20 @@ class Tasks extends BaseController
 
         $task = $this->getTaskOr404($id);
 
-        $task->fill($this->request->getPost());
+        $post = $this->request->getPost();
+        unset($post['user_id']);
 
-        if( ! $task->hasChanged()) 
-        {
+        $task->fill($post);
+
+        if (!$task->hasChanged()) {
             return redirect()->back()
-                             ->with('warning', 'Nothing to update')
-                             ->withInput();
+                ->with('warning', 'Nothing to update')
+                ->withInput();
         }
 
         if ($this->model->save($task)) {
             return redirect()->to("/tasks/show/$id")
-                             ->with('info', 'Task updated succesfully');
+                ->with('info', 'Task updated succesfully');
         } else {
             return redirect()->back()
                 ->with('errors', $this->model->errors())
@@ -94,12 +105,12 @@ class Tasks extends BaseController
     {
         $task = $this->getTaskOr404($id);
 
-        if ($this->request->getMethod() === 'post'){
+        if ($this->request->getMethod() === 'post') {
 
             $this->model->delete($id);
 
             return redirect()->to('/tasks')
-                             ->with('info', 'Task deleted');
+                ->with('info', 'Task deleted');
         }
 
         return view('Tasks/delete', [
@@ -108,17 +119,20 @@ class Tasks extends BaseController
     }
 
     private function getTaskOr404($id)
-    
+
     {
+        // $task = $this->model->find($id);
 
-        $task = $this->model->find($id);
+        // if ($task !== null && ($task->user_id !== $user->id)) {
+        //     $task = null;
+        // }
 
-        if ($task === null)
-        {
+        $task = $this->model->getTaskByUserId($id, $this->current_user->id);
+
+        if ($task === null) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Task with id $id not found");
         }
 
         return $task;
-    
     }
 }
