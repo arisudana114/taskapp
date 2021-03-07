@@ -6,6 +6,6 @@
 
 <h1>Signup</h1>
 
-<p>Signup successful.</p>
+<p>Account activation successful.</p>
 
 <?= $this->endSection(); ?>
