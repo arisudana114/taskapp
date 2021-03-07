@@ -21,6 +21,7 @@ class Filters extends BaseConfig
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
 		'login' => \App\Filters\LoginFilter::class,
 		'guest' => \App\Filters\GuestFilter::class,
+		'admin' => \App\Filters\AdminFilter::class
 	];
 
 	/**
@@ -61,6 +62,16 @@ class Filters extends BaseConfig
 	 * @var array
 	 */
 	public $filters = [
-		'login' => ['before' => ['tasks(/*)?']]
+		'login' => [
+			'before' => [
+				'tasks(/*)?',
+				'admin/*'
+			]	
+				],
+		'admin' => [
+			'before' => [
+				'admin/*'
+			]
+		]
 	];
 }
