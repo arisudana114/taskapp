@@ -4,24 +4,41 @@
 
 <?= $this->section('content'); ?>
 
-<h1>Login</h1>
+<h1 class="title">Login</h1>
 
-<?= form_open("/Login/create"); ?>
+<div class="container">
 
-<div>
-    <label for="email">email</label>
-    <input type="text" name="email" id="email" value="<?= old('email') ?>">
+    <?= form_open("/Login/create"); ?>
+
+    <div class="field">
+        <label class="label" for="email">email</label>
+        <input class="input" type="text" name="email" id="email" value="<?= old('email') ?>">
+    </div>
+
+    <div class="field">
+        <label class="label" for="email">password</label>
+        <input class="input" type="password" name="password">
+    </div>
+
+    <div class="field">
+        <label class="checkbox" for="remember_me">
+            <input type="checkbox" id="remember_me" name="remember_me" <?php if (old('remember_me')) : ?> checked <?php endif; ?>> remember me
+        </label>
+    </div>
+
+
+    <div class="field is-grouped">
+
+        <div class="control">
+            <button class="button is-primary">Log in</button>
+        </div>
+
+        <a href="<?= site_url("/password/forgot") ?>">Forgot password?</a>
+
+        </form>
+
+    </div>
+
 </div>
-
-<div>
-    <label for="email">password</label>
-    <input type="password" name="password">
-</div>
-
-<button>Log in</button>
-
-<a href="<?= site_url("/password/forgot") ?>">Forgot password?</a>
-
-</form>
 
 <?= $this->endSection(); ?>

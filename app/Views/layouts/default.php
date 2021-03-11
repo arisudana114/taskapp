@@ -6,67 +6,90 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $this->renderSection("title"); ?></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css" integrity="sha256-O8SsQwDg1R10WnKJNyYgd9J3rlom+YSVcGbEF5RmfFk=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="<?= site_url('/css/auto-complete.css') ?>">
 </head>
 
 <body>
 
-    <a href="<?= site_url("/") ?>">Home</a>
+    <section class="section">
 
-    <?php if (current_user()) : ?>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
 
-        <p>Hello <?= esc(current_user()->name); ?></p>
+            <div class="navbar-menu">
 
-        <a href="<?= site_url("/profile/show") ?>">Profile</a>
+                <div class="navbar-start">
 
-        <?php if (current_user()->is_admin) : ?>
+                    <a class="navbar-item" href="<?= site_url("/") ?>">Home</a>
 
-            <a href="<?= site_url("/admin/users") ?>">Users</a>
+                </div>
 
-        <?php endif; ?>
+                <div class="navbar-end">
 
-        <a href="<?= site_url("/tasks") ?>">Tasks</a>
+                    <?php if (current_user()) : ?>
 
-        <a href="<?= site_url("/logout") ?>">Log out</a>
+                        <div class="navbar-item">Hello <?= esc(current_user()->name); ?></div>
 
-    <?php else : ?>
+                        <a class="navbar-item" href="<?= site_url("/profile/show") ?>">Profile</a>
 
-        <a href="<?= site_url("/signup") ?>">Sign up</a>
+                        <?php if (current_user()->is_admin) : ?>
 
-        <a href="<?= site_url("/login") ?>">Log in</a>
+                            <a href="<?= site_url("/admin/users") ?>">Users</a>
 
-    <?php endif; ?>
+                        <?php endif; ?>
 
-    <?php if (session()->has('warning')) : ?>
+                        <a class="navbar-item" href="<?= site_url("/tasks") ?>">Tasks</a>
 
-        <div class="warning">
+                        <a class="navbar-item" href="<?= site_url("/logout") ?>">Log out</a>
 
-            <?= session('warning'); ?>
+                    <?php else : ?>
 
-        </div>
+                        <a class="navbar-item" href="<?= site_url("/signup") ?>">Sign up</a>
 
-    <?php endif ?>
+                        <a class="navbar-item" href="<?= site_url("/login") ?>">Log in</a>
 
-    <?php if (session()->has('info')) : ?>
+                    <?php endif; ?>
+                </div>
 
-        <div class="info">
+            </div>
 
-            <?= session('info'); ?>
+        </nav>
 
-        </div>
+        <?php if (session()->has('warning')) : ?>
 
-    <?php endif ?>
+            <div class="notification is-warning is-light">
+                <button class="delete"></button>
+                <?= session('warning'); ?>
 
-    <?php if (session()->has('error')) : ?>
+            </div>
 
-        <div class="error">
+        <?php endif ?>
 
-            <?= session('error'); ?>
+        <?php if (session()->has('info')) : ?>
 
-        </div>
+            <div class="notification is-info is-light">
+                <button class="delete"></button>
+                <?= session('info'); ?>
 
-    <?php endif ?>
+            </div>
 
-    <?= $this->renderSection("content"); ?>
+        <?php endif ?>
+
+        <?php if (session()->has('error')) : ?>
+
+            <div class="notification is-danger is-light">
+                <button class="delete"></button>
+                <?= session('error'); ?>
+
+            </div>
+
+        <?php endif ?>
+
+        <?= $this->renderSection("content"); ?>
+
+    </section>
+
+    <script src="<?= site_url('/js/app.js') ?>"></script>
 
 </body>
 
