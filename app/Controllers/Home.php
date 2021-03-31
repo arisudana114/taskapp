@@ -9,20 +9,47 @@ class Home extends BaseController
 		return view("Home/index");
 	}
 
-	public function testEmail()
+	// public function testEmail()
+	// {
+	// 	$email = service('email');
+
+	// 	$email->setTo('omidhealth.tangerang@gmail.com');
+
+	// 	$email->setSubject('A test email');
+
+	// 	$email->setMessage('<h1>Hello world</h1>');
+
+	// 	if ($email->send()) {
+	// 		echo "Message sent";
+	// 	} else {
+	// 		echo $email->printDebugger();
+	// 	}
+	// }
+
+	public function show($id)
 	{
-		$email = service('email');
+		$task = $this->getTaskOr404($id);
 
-		$email->setTo('omidhealth.tangerang@gmail.com');
+		return view("Tasks/show", [
+			'task' => $task
+		]);
+	}
 
-		$email->setSubject('A test email');
+	private function getTaskOr404($id)
 
-		$email->setMessage('<h1>Hello world</h1>');
+	{
+		// $task = $this->model->find($id);
 
-		if ($email->send()) {
-			echo "Message sent";
-		} else {
-			echo $email->printDebugger();
+		// if ($task !== null && ($task->user_id !== $user->id)) {
+		//     $task = null;
+		// }
+
+		$task = $this->model->getTaskByUserId($id, $this->current_user->id);
+
+		if ($task === null) {
+			throw new \CodeIgniter\Exceptions\PageNotFoundException("Task with id $id not found");
 		}
+
+		return $task;
 	}
 }
