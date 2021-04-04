@@ -14,12 +14,22 @@ class Movies extends BaseController
         ]);
     }
 
-    public function show($id)
+    public function detail($id)
     {
         $model = new \App\Models\MoviesModel;
         $movie = $model->find($id);
 
-        return view("Movies/show", [
+        return view("Movies/detail", [
+            'movies' => $movie
+        ]);
+    }
+
+    public function beli($id)
+    {
+        $model = new \App\Models\MoviesModel;
+        $movie = $model->find($id);
+
+        return view("Movies/beli", [
             'movies' => $movie
         ]);
     }
