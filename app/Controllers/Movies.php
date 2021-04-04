@@ -33,4 +33,20 @@ class Movies extends BaseController
             'movies' => $movie
         ]);
     }
+
+    public function ticket_process($id)
+    {
+        $model = new \App\Models\TicketModel;
+        $movie = new \App\Models\MoviesModel;
+
+        $data = $movie->find($id);
+
+        $model->insert(
+            [
+                'name' => $this->request->getPost("nama"),
+                'user_id' => current_user()->id,
+                'movies_id' => $data['id']
+            ]
+        );
+    }
 }
