@@ -6,6 +6,12 @@ class Home extends BaseController
 {
 	public function index()
 	{
+		$model = new \App\Models\MoviesModel;
+		$data = $model->findAll();
+
+		return view("Home/index", [
+			'movies' => $data
+		]);
 		return view("Home/index");
 	}
 

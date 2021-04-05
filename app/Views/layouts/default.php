@@ -39,7 +39,7 @@
 
                         <?php endif; ?>
 
-                        <a class="navbar-item" href="<?= site_url("/tasks") ?>">Tasks</a>
+                        <a class="navbar-item" href="<?= site_url("/movies") ?>">Movies</a>
 
                         <a class="navbar-item" href="<?= site_url("/logout") ?>">Log out</a>
 

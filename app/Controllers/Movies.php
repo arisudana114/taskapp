@@ -36,17 +36,40 @@ class Movies extends BaseController
 
     public function ticket_process($id)
     {
-        $model = new \App\Models\TicketModel;
-        $movie = new \App\Models\MoviesModel;
+        $ticket_model = new \App\Models\TicketModel;
+        $movies_model = new \App\Models\MoviesModel;
+        $user_model = new \App\Models\UserModel;
 
-        $data = $movie->find($id);
+        $movies = $movies_model->find($id);
+        $user = $user_model->find(current_user()->id);
 
-        $model->insert(
+        $ticket_model->insert(
             [
                 'name' => $this->request->getPost("nama"),
                 'user_id' => current_user()->id,
-                'movies_id' => $data['id']
+                'movies_id' => $movies['id']
             ]
         );
+
+        $this->sendActivationEmail($user, $movies);
+
+        return view("Movies/success");
+    }
+
+    public function sendActivationEmail($user, $movies)
+    {
+        $email = service('email');
+
+        $email->setTo($user->email);
+
+        $email->setSubject('Pembelian tiket berhasil');
+
+        $message = view('Movies/ticket_email', [
+            'movies' => $movies
+        ]);
+
+        $email->setMessage($message);
+
+        $email->send();
     }
 }
