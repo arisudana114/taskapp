@@ -45,18 +45,20 @@ class Movies extends BaseController
 
         $ticket_model->insert(
             [
-                'name' => $this->request->getPost("nama"),
+                'name' => implode(", ", $this->request->getPost("kursi")),
                 'user_id' => current_user()->id,
                 'movies_id' => $movies['id']
             ]
         );
 
-        $this->sendActivationEmail($user, $movies);
+        $ticket = $ticket_model->find($ticket_model->insertID);
+
+        $this->sendActivationEmail($user, $movies, $ticket);
 
         return view("Movies/success");
     }
 
-    public function sendActivationEmail($user, $movies)
+    public function sendActivationEmail($user, $movies, $ticket)
     {
         $email = service('email');
 
@@ -65,7 +67,8 @@ class Movies extends BaseController
         $email->setSubject('Pembelian tiket berhasil');
 
         $message = view('Movies/ticket_email', [
-            'movies' => $movies
+            'movies' => $movies,
+            'ticket' => $ticket
         ]);
 
         $email->setMessage($message);

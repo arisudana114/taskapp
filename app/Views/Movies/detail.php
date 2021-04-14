@@ -9,9 +9,20 @@
 <h4><?= $movies['title']; ?></h4>
 <div>
     <img src="<?= base_url("images/" . $movies['image']) ?>" alt="" height="300rem">
-    <h2>Harga tiket: <?= $movies['price'] ?></h2>
+    <h4>Harga tiket: <?= $movies['price'] ?></h4>
 </div>
-<a href="<?= site_url("/movies/ticket_process/" . $movies['id']) ?>" class="btn btn-info">Beli</a>
+
+<p>Pilih kursi</p>
+
+<?= form_open(site_url("/movies/ticket_process/" . $movies['id'])); ?>
+
+<?= $this->include("Movies/form"); ?>
+
+<button class="btn btn-info">Beli</button>
 <a href="<?= site_url("movies") ?>" class="btn btn-info">Kembali</a>
+
+</form>
+
+<!-- <a href="<?= site_url("/movies/ticket_process/" . $movies['id']) ?>" class="btn btn-info">Beli</a> -->
 
 <?= $this->endSection(); ?>

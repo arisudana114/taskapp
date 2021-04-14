@@ -4,9 +4,9 @@
 
 <?= $this->section("content"); ?>
 
-<div class="row">
+<div class="columns">
     <?php foreach ($movies as $movie) : ?>
-        <div class="col-sm-3" style="margin-bottom: 50px; margin-top:50px">
+        <div class="column is-3">
             <img src="<?= base_url("images/" . $movie['image']) ?>" width="200px" height="300px">
             <h5><?= $movie['title'] ?></h5>
             <a href="<?= site_url("movies/detail/" . $movie['id']) ?>" class="btn btn-primary">Detail</a>
