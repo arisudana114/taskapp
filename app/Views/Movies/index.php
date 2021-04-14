@@ -4,14 +4,20 @@
 
 <?= $this->section("content"); ?>
 
-<h1>Movies</h1>
-<div class="row">
+<div class="columns is-centered mt-6">
     <?php foreach ($movies as $movie) : ?>
-        <div class="col-sm-3" style="margin-bottom: 50px; margin-top:50px">
-            <img src="<?= base_url("images/" . $movie['image']) ?>" width="200px" height="300px">
-            <h5><?= $movie['title'] ?></h5>
-            <a href="<?= site_url("movies/detail/" . $movie['id']) ?>" class="btn btn-primary">Detail</a>
+        <div class="column has-text-centered is-3">
+            <div style="height: 320px;">
+                <img src="<?= base_url("images/" . $movie['image']) ?>" style="height: 300px; border-radius:5%">
+            </div>
+            <div style="padding-left: 40px; padding-right: 40px; height: 50px">
+                <strong><?= $movie['title'] ?></strong>
+            </div>
+            <div>
+                <a href="<?= site_url("movies/detail/" . $movie['id']) ?>" class="button is-rounded is-danger mt-2 is-small"><strong>Beli Tiket</strong></a>
+            </div>
         </div>
     <?php endforeach; ?>
 </div>
+
 <?= $this->endSection(); ?>
