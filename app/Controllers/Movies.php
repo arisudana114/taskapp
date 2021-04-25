@@ -24,6 +24,16 @@ class Movies extends BaseController
         ]);
     }
 
+    public function detail2($id)
+    {
+        $model = new \App\Models\MoviesModel;
+        $movie = $model->find($id);
+
+        return view("Movies/detail2", [
+            'movies' => $movie
+        ]);
+    }
+
     public function beli($id)
     {
         $model = new \App\Models\MoviesModel;
@@ -45,18 +55,20 @@ class Movies extends BaseController
 
         $ticket_model->insert(
             [
-                'name' => $this->request->getPost("nama"),
+                'name' => implode(", ", $this->request->getPost("kursi")),
                 'user_id' => current_user()->id,
                 'movies_id' => $movies['id']
             ]
         );
 
-        $this->sendActivationEmail($user, $movies);
+        $ticket = $ticket_model->find($ticket_model->insertID);
+
+        $this->sendActivationEmail($user, $movies, $ticket);
 
         return view("Movies/success");
     }
 
-    public function sendActivationEmail($user, $movies)
+    public function sendActivationEmail($user, $movies, $ticket)
     {
         $email = service('email');
 
@@ -65,7 +77,8 @@ class Movies extends BaseController
         $email->setSubject('Pembelian tiket berhasil');
 
         $message = view('Movies/ticket_email', [
-            'movies' => $movies
+            'movies' => $movies,
+            'ticket' => $ticket
         ]);
 
         $email->setMessage($message);

@@ -7,88 +7,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $this->renderSection("title"); ?></title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css" integrity="sha256-O8SsQwDg1R10WnKJNyYgd9J3rlom+YSVcGbEF5RmfFk=" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="<?= site_url('/css/auto-complete.css') ?>">
 </head>
 
 <body>
 
-    <section class="section">
+    <nav class="navbar has-shadow is-white px-2">
+        <!--  logo / brand -->
+        <div class="navbar-brand">
+            <a href="<?= site_url("/") ?>" class="navbar-item">
+                <img src="<?= base_url("images/logo.png") ?>" alt="site logo" style="max-height: 70px" class="py-2 px-2">
+            </a>
+            <a class="navbar-burger" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </div>
 
-        <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-menu" id="nav-links">
+            <div class="navbar-end">
+                <?php if (current_user()) : ?>
 
-            <div class="navbar-menu">
+                    <div class="navbar-item">Hello <?= esc(current_user()->name); ?></div>
+                    <a class="navbar-item" href="<?= site_url("/profile/show") ?>">Profile</a>
 
-                <div class="navbar-start">
-
-                    <a class="navbar-item" href="<?= site_url("/") ?>">Home</a>
-
-                </div>
-
-                <div class="navbar-end">
-
-                    <?php if (current_user()) : ?>
-
-                        <div class="navbar-item">Hello <?= esc(current_user()->name); ?></div>
-
-                        <a class="navbar-item" href="<?= site_url("/profile/show") ?>">Profile</a>
-
-                        <?php if (current_user()->is_admin) : ?>
-
-                            <a href="<?= site_url("/admin/users") ?>">Users</a>
-
-                        <?php endif; ?>
-
-                        <a class="navbar-item" href="<?= site_url("/movies") ?>">Movies</a>
-
-                        <a class="navbar-item" href="<?= site_url("/logout") ?>">Log out</a>
-
-                    <?php else : ?>
-
-                        <a class="navbar-item" href="<?= site_url("/signup") ?>">Sign up</a>
-
-                        <a class="navbar-item" href="<?= site_url("/login") ?>">Log in</a>
-
+                    <?php if (current_user()->is_admin) : ?>
+                        <a href="<?= site_url("/admin/users") ?>">Users</a>
                     <?php endif; ?>
-                </div>
 
+                    <a class="navbar-item" href="<?= site_url("/movies") ?>">Movies</a>
+                    <a class="navbar-item" href="<?= site_url("/logout") ?>">Log out</a>
+
+                <?php else : ?>
+
+                    <a class="navbar-item" href="<?= site_url("/signup") ?>">Sign up</a>
+                    <a class="navbar-item" href="<?= site_url("/login") ?>">Log in</a>
+
+                <?php endif; ?>
             </div>
+        </div>
+    </nav>
 
+    <!--  breadcrumbs -->
+    <div class="section pt-4 pb-0">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="<?= site_url("/") ?>">Home</a></li>
+                <li><a href="<?= site_url("/movies") ?>" aria-current="page">Movies</a></li>
+            </ul>
         </nav>
+    </div>
 
-        <?php if (session()->has('warning')) : ?>
+    <?php if (session()->has('warning')) : ?>
 
-            <div class="notification is-warning is-light">
-                <button class="delete"></button>
-                <?= session('warning'); ?>
+        <div class="notification is-warning is-light">
+            <button class="delete"></button>
+            <?= session('warning'); ?>
+        </div>
 
-            </div>
+    <?php endif ?>
 
-        <?php endif ?>
+    <?php if (session()->has('info')) : ?>
 
-        <?php if (session()->has('info')) : ?>
+        <div class="notification is-info is-light">
+            <button class="delete"></button>
+            <?= session('info'); ?>
+        </div>
 
-            <div class="notification is-info is-light">
-                <button class="delete"></button>
-                <?= session('info'); ?>
+    <?php endif ?>
 
-            </div>
+    <?php if (session()->has('error')) : ?>
 
-        <?php endif ?>
+        <div class="notification is-danger is-light">
+            <button class="delete"></button>
+            <?= session('error'); ?>
+        </div>
 
-        <?php if (session()->has('error')) : ?>
+    <?php endif ?>
 
-            <div class="notification is-danger is-light">
-                <button class="delete"></button>
-                <?= session('error'); ?>
-
-            </div>
-
-        <?php endif ?>
-
-        <?= $this->renderSection("content"); ?>
-
-    </section>
+    <?= $this->renderSection("content"); ?>
 
     <script src="<?= site_url('/js/app.js') ?>"></script>
 
