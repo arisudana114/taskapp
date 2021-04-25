@@ -89,6 +89,7 @@
     <?= $this->renderSection("content"); ?>
 
     <script src="<?= site_url('/js/app.js') ?>"></script>
+    <script src="<?= site_url('/js/display.js') ?>"></script>
 
 </body>
 
