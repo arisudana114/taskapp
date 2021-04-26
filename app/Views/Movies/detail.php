@@ -24,7 +24,7 @@
 <div class="container">
     <div class="columns">
         <div class="ml-2 mt-4 mb-0">
-            <a href="https://www.youtube.com/watch?v=wGsOsciMoG0&ab_channel=DaikuMediaAnime" target="_blank" class="button is-danger mt-4 mb-0">Tonton trailer</a>
+            <a href="https://www.youtube.com/watch?v=wGsOsciMoG0&ab_channel=DaikuMediaAnime" target="_blank" class="button is-danger mt-4 mb-6">Tonton trailer</a>
         </div>
     </div>
     <div class="columns">
@@ -32,19 +32,35 @@
             <div class="tabs is-boxed">
                 <ul>
                     <li class="is-active" data-target="23-april"><a>23 April 2020</a></li>
-                    <li><a>24 April 2020</a></li>
-                    <li><a>25 April 2020</a></li>
-                    <li><a>26 April 2020</a></li>
+                    <li data-target="24-april"><a>24 April 2020</a></li>
+                    <li data-target="25-april"><a>25 April 2020</a></li>
+                    <li data-target="26-april"><a>26 April 2020</a></li>
                 </ul>
             </div>
             <div class="px-2" id="tab-content">
-                <div id="product-details">
-                    <h3 class="is-size-5 title">23 April</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus placeat alias atque distinctio? Vel aliquam ipsa corporis, quia possimus veniam. Sequi et perferendis iure pariatur! Quibusdam enim alias deleniti inventore.</p>
+                <div id="23-april">
+                    <h3 class="is-size-5 title">Grand Indonesia</h3>
+                    <a href="#" id="show-time" class="button is-danger is-outlined mr-4">11:45</a>
+                    <a href="#" class="button is-danger is-outlined mr-4 ">13:25</a>
+                    <a href="#" class="button is-danger is-outlined mr-4">15:55</a>
                 </div>
-                <div id="product-details">
-                    <h3 class="is-size-5 title">24 April</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus placeat alias atque distinctio? Vel aliquam ipsa corporis, quia possimus veniam. Sequi et perferendis iure pariatur! Quibusdam enim alias deleniti inventore.</p>
+                <div id="24-april" class="is-hidden">
+                    <h3 class="is-size-5 title">Central Park</h3>
+                    <a href="#" class="button is-danger is-outlined mr-4">11:45</a>
+                    <a href="#" class="button is-danger is-outlined mr-4 ">13:25</a>
+                    <a href="#" class="button is-danger is-outlined mr-4">15:55</a>
+                </div>
+                <div id="25-april" class="is-hidden">
+                    <h3 class="is-size-5 title">AEON Jakarta Garden City</h3>
+                    <a href="#" class="button is-danger is-outlined mr-4">11:45</a>
+                    <a href="#" class="button is-danger is-outlined mr-4 ">13:25</a>
+                    <a href="#" class="button is-danger is-outlined mr-4">15:55</a>
+                </div>
+                <div id="26-april" class="is-hidden">
+                    <h3 class="is-size-5 title">Sunter Mall</h3>
+                    <a href="#" class="button is-danger is-outlined mr-4">11:45</a>
+                    <a href="#" class="button is-danger is-outlined mr-4 ">13:25</a>
+                    <a href="#" class="button is-danger is-outlined mr-4">15:55</a>
                 </div>
             </div>
         </div>
@@ -53,7 +69,74 @@
 
 </form>
 
+<!-- modal -->
+<div class="modal">
+    <div class="modal-background py-5 px-5"></div>
+    <div class="modal-content has-background-white py-5 px-5">
+        <div class="columns">
+            <div class="column is-11 box mb-5"></div>
+        </div>
+        <div class="columns">
+            <div class="column is-8 box mr-4 mb-0">
+                <div class="columns">
+                    <div class="column is-8 box mx-5 mt-5 has-background-danger">
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-8 mx-5 mt-5">
+
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-8 box mx-5 my-5">
+                        <?= form_open(site_url("/movies/ticket_process/" . $movies['id'])); ?>
+                        <?= $this->include("Movies/form"); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-3 box">
+                <div class="columns">
+                    <div class="column is-3">
+                        <img src="<?= base_url("images/" . $movies['image']) ?>">
+                    </div>
+                    <div class="column is-8">
+                        <strong class="is-size-4"><?= $movies['title']; ?></strong>
+                        <p>Cinema: Aeon JGC</p>
+                        <p>Date & Time: 25 April 14:30</p>
+                        <p>Studio: Studio 4</p>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-12">
+                        <b>Seat number</b>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-12">
+                        <div class="seat-number"></div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-12">
+                        <b>0 Seats selected</b>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-12">
+                        <div></div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-12">
+                        <a class="button is-danger" href="">Continue</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- <a href="<?= site_url("movies/detail2/" . $movies['id']) ?>" class="button is-danger is-small mt-4 mb-6">Lanjut</a> -->
 
-
+<script></script>
 <?= $this->endSection(); ?>
