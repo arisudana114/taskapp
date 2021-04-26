@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2021 at 01:14 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- Generation Time: Apr 26, 2021 at 05:08 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -133,7 +133,11 @@ CREATE TABLE `ticket` (
 --
 
 INSERT INTO `ticket` (`id`, `pass_key`, `user_id`, `movies_id`, `name`) VALUES
-(8, NULL, 1, 4, 'ari');
+(8, NULL, 1, 4, 'ari'),
+(9, NULL, 1, 2, NULL),
+(10, NULL, 1, 1, 'A1, A2, C1, C2'),
+(11, NULL, 1, 2, 'A5'),
+(12, NULL, 1, 2, 'D1');
 
 -- --------------------------------------------------------
 
@@ -238,7 +242,7 @@ ALTER TABLE `task`
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user`
