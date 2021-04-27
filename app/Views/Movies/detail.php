@@ -11,7 +11,7 @@
         </div>
         <div class="column is-5">
             <h1>
-                <strong><?= $movies['title']; ?></strong>
+                <strong class="is-size-2 mb-2"><?= $movies['title']; ?></strong>
                 <p class="mt-4">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Et laudantium corporis ipsam officiis tenetur laboriosam soluta. Itaque dicta adipisci nam facilis ex aspernatur cupiditate voluptate earum reprehenderit. Quod, ab quae!
                     Aut velit minus non consequatur voluptate facilis accusantium adipisci ut itaque? Voluptate numquam, tempore quia tenetur, nisi ea rerum perferendis, culpa eum aut earum. Excepturi earum ex doloribus non officiis.
@@ -100,7 +100,7 @@
                         <img src="<?= base_url("images/" . $movies['image']) ?>">
                     </div>
                     <div class="column is-8">
-                        <strong class="is-size-4"><?= $movies['title']; ?></strong>
+                        <strong class="is-size-5"><?= $movies['title']; ?></strong>
                         <p>Cinema: Aeon JGC</p>
                         <p>Date & Time: 25 April 14:30</p>
                         <p>Studio: Studio 4</p>
@@ -118,17 +118,17 @@
                 </div>
                 <div class="columns">
                     <div class="column is-12">
-                        <b>0 Seats selected</b>
+                        <b class="seat-amount is-size-6">0 Seats selected</b>
                     </div>
                 </div>
                 <div class="columns">
                     <div class="column is-12">
-                        <div></div>
+                        <div><b class="price is-size-6"></b></div>
                     </div>
                 </div>
                 <div class="columns">
                     <div class="column is-12">
-                        <a class="button is-danger" href="">Continue</a>
+                        <button class="button is-danger">Beli</button>
                     </div>
                 </div>
             </div>
@@ -136,7 +136,8 @@
     </div>
 </div>
 
+
+</form>
 <!-- <a href="<?= site_url("movies/detail2/" . $movies['id']) ?>" class="button is-danger is-small mt-4 mb-6">Lanjut</a> -->
 
-<script></script>
 <?= $this->endSection(); ?>

@@ -52,6 +52,7 @@ class Movies extends BaseController
 
         $movies = $movies_model->find($id);
         $user = $user_model->find(current_user()->id);
+        $seat_amount = $this->request->getPost("kursi");
 
         $ticket_model->insert(
             [
@@ -63,12 +64,12 @@ class Movies extends BaseController
 
         $ticket = $ticket_model->find($ticket_model->insertID);
 
-        $this->sendActivationEmail($user, $movies, $ticket);
+        $this->sendActivationEmail($user, $movies, $ticket, $seat_amount);
 
         return view("Movies/success");
     }
 
-    public function sendActivationEmail($user, $movies, $ticket)
+    public function sendActivationEmail($user, $movies, $ticket, $seat_amount)
     {
         $email = service('email');
 
@@ -78,7 +79,8 @@ class Movies extends BaseController
 
         $message = view('Movies/ticket_email', [
             'movies' => $movies,
-            'ticket' => $ticket
+            'ticket' => $ticket,
+            'amount' => $seat_amount
         ]);
 
         $email->setMessage($message);
