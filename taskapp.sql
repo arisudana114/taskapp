@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2021 at 05:08 AM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 7.4.16
+-- Generation Time: Apr 30, 2021 at 03:37 AM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `taskapp`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cinema`
+--
+
+CREATE TABLE `cinema` (
+  `id` int(100) UNSIGNED NOT NULL,
+  `cinema_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cinema`
+--
+
+INSERT INTO `cinema` (`id`, `cinema_name`) VALUES
+(1, 'Grand Indonesia'),
+(2, 'Central Park'),
+(3, 'AEON Jakarta Garden City'),
+(4, 'Sunter Mall');
 
 -- --------------------------------------------------------
 
@@ -61,25 +82,34 @@ INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`
 --
 
 CREATE TABLE `movies` (
-  `id` int(5) UNSIGNED NOT NULL,
-  `title` varchar(128) NOT NULL,
-  `description` varchar(128) NOT NULL,
-  `price` int(10) UNSIGNED NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `showtime` datetime DEFAULT NULL,
-  `auditorium` int(11) NOT NULL,
-  `cinema` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` int(255) UNSIGNED NOT NULL,
+  `titles_id` int(255) UNSIGNED NOT NULL,
+  `cinema_id` int(255) UNSIGNED NOT NULL,
+  `show_date_id` int(255) UNSIGNED NOT NULL,
+  `show_time_id` int(255) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `movies`
 --
 
-INSERT INTO `movies` (`id`, `title`, `description`, `price`, `image`, `showtime`, `auditorium`, `cinema`) VALUES
-(1, 'Evangelion 3.0 + 1.0 : Thrice Upon A Time', 'Evangelion the movie', 50000, 'evangelion.png', NULL, 1, 'Cinema 1'),
-(2, 'Gintama: The Final', 'Gintama movie the final', 50000, 'gintama.jpg', NULL, 2, 'Cinema 2'),
-(3, 'Kimetsu no Yaiba: Mugen Train', 'Kimetsu no Yaiba the movie', 50000, 'kny.jpg', NULL, 3, 'Cinema 3'),
-(4, 'Violet Evergarden The Movie', 'Violet Evergarden The Movie', 50000, 'violet_evergarden.png', NULL, 4, 'Cinema 4');
+INSERT INTO `movies` (`id`, `titles_id`, `cinema_id`, `show_date_id`, `show_time_id`) VALUES
+(1, 1, 1, 1, 1),
+(2, 1, 2, 2, 2),
+(3, 1, 3, 3, 3),
+(4, 1, 4, 4, 1),
+(5, 2, 1, 1, 1),
+(6, 2, 2, 2, 2),
+(7, 2, 3, 3, 3),
+(8, 2, 4, 4, 1),
+(9, 3, 1, 1, 1),
+(10, 3, 2, 2, 2),
+(11, 3, 3, 3, 3),
+(12, 3, 4, 4, 1),
+(13, 4, 1, 1, 1),
+(14, 4, 2, 2, 2),
+(15, 4, 3, 3, 3),
+(16, 4, 4, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -92,6 +122,47 @@ CREATE TABLE `remembered_login` (
   `user_id` int(5) UNSIGNED NOT NULL,
   `expires_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `show_date`
+--
+
+CREATE TABLE `show_date` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `show_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `show_date`
+--
+
+INSERT INTO `show_date` (`id`, `show_date`) VALUES
+(1, '2021-04-23'),
+(2, '2021-04-24'),
+(3, '2021-04-25'),
+(4, '2021-04-26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `show_time`
+--
+
+CREATE TABLE `show_time` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `show_time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `show_time`
+--
+
+INSERT INTO `show_time` (`id`, `show_time`) VALUES
+(1, '11:45:00'),
+(2, '13:25:00'),
+(3, '15:55:00');
 
 -- --------------------------------------------------------
 
@@ -133,11 +204,41 @@ CREATE TABLE `ticket` (
 --
 
 INSERT INTO `ticket` (`id`, `pass_key`, `user_id`, `movies_id`, `name`) VALUES
-(8, NULL, 1, 4, 'ari'),
-(9, NULL, 1, 2, NULL),
-(10, NULL, 1, 1, 'A1, A2, C1, C2'),
-(11, NULL, 1, 2, 'A5'),
-(12, NULL, 1, 2, 'D1');
+(66, NULL, 1, 1, 'a3'),
+(67, NULL, 1, 1, NULL),
+(68, NULL, 1, 1, 'a1, a2, a3'),
+(69, NULL, 1, 1, 'A1, A2, A3, A3, A3, A3, A3, A3'),
+(70, NULL, 1, 2, 'A1'),
+(71, NULL, 1, 3, 'A1, A2, A3, A3, A3, A3, A3, A3'),
+(72, NULL, 1, 2, 'A1'),
+(73, NULL, 1, 3, 'A1, A2, A3, A4, A5, B1, B2, B3'),
+(74, NULL, 1, 1, 'A1, A2'),
+(75, NULL, 1, 1, 'A1, A2'),
+(76, NULL, 1, 1, 'D3, A4, A5, C5, D5');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `titles`
+--
+
+CREATE TABLE `titles` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `description` varchar(128) NOT NULL,
+  `price` int(10) UNSIGNED NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `titles`
+--
+
+INSERT INTO `titles` (`id`, `title`, `description`, `price`, `image`) VALUES
+(1, 'Evangelion 3.0 + 1.0 : Thrice Upon A Time', 'Evangelion the movie', 50000, 'evangelion.png'),
+(2, 'Gintama: The Final', 'Gintama movie the final', 50000, 'gintama.jpg'),
+(3, 'Kimetsu no Yaiba: Mugen Train', 'Kimetsu no Yaiba the movie', 50000, 'kny.jpg'),
+(4, 'Violet Evergarden The Movie', 'Violet Evergarden The Movie', 50000, 'violet_evergarden.png');
 
 -- --------------------------------------------------------
 
@@ -172,6 +273,12 @@ INSERT INTO `user` (`id`, `name`, `email`, `password_hash`, `created_at`, `updat
 --
 
 --
+-- Indexes for table `cinema`
+--
+ALTER TABLE `cinema`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -181,7 +288,11 @@ ALTER TABLE `migrations`
 -- Indexes for table `movies`
 --
 ALTER TABLE `movies`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `titles_id` (`titles_id`,`cinema_id`,`show_date_id`,`show_time_id`),
+  ADD KEY `movies_cinema_id_fk` (`cinema_id`),
+  ADD KEY `movies_show_date_id_fk` (`show_date_id`),
+  ADD KEY `movies_show_time_id_fk` (`show_time_id`);
 
 --
 -- Indexes for table `remembered_login`
@@ -190,6 +301,18 @@ ALTER TABLE `remembered_login`
   ADD PRIMARY KEY (`token_hash`),
   ADD KEY `remembered_login_user_id_foreign` (`user_id`),
   ADD KEY `expires_at` (`expires_at`);
+
+--
+-- Indexes for table `show_date`
+--
+ALTER TABLE `show_date`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `show_time`
+--
+ALTER TABLE `show_time`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `task`
@@ -208,6 +331,12 @@ ALTER TABLE `ticket`
   ADD KEY `ticket_movies_id_fk` (`movies_id`);
 
 --
+-- Indexes for table `titles`
+--
+ALTER TABLE `titles`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -221,6 +350,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `cinema`
+--
+ALTER TABLE `cinema`
+  MODIFY `id` int(100) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -230,7 +365,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `show_date`
+--
+ALTER TABLE `show_date`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `show_time`
+--
+ALTER TABLE `show_time`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `task`
@@ -242,7 +389,13 @@ ALTER TABLE `task`
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+
+--
+-- AUTO_INCREMENT for table `titles`
+--
+ALTER TABLE `titles`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -253,6 +406,15 @@ ALTER TABLE `user`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `movies`
+--
+ALTER TABLE `movies`
+  ADD CONSTRAINT `movies_cinema_id_fk` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `movies_show_date_id_fk` FOREIGN KEY (`show_date_id`) REFERENCES `show_date` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `movies_show_time_id_fk` FOREIGN KEY (`show_time_id`) REFERENCES `show_time` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `movies_titles_id_fk` FOREIGN KEY (`titles_id`) REFERENCES `titles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `remembered_login`
@@ -270,7 +432,7 @@ ALTER TABLE `task`
 -- Constraints for table `ticket`
 --
 ALTER TABLE `ticket`
-  ADD CONSTRAINT `ticket_movies_id_fk` FOREIGN KEY (`movies_id`) REFERENCES `movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ticket_movies_id_fk` FOREIGN KEY (`movies_id`) REFERENCES `titles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ticket_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 

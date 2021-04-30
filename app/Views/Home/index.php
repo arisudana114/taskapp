@@ -4,6 +4,7 @@
 
 <?= $this->section("content"); ?>
 
+
 <div class="columns is-centered mt-6">
     <?php foreach ($movies as $movie) : ?>
         <div class="column has-text-centered is-3">

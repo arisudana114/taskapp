@@ -31,14 +31,31 @@
         <div class="column is-6 mb-6">
             <div class="tabs is-boxed">
                 <ul>
-                    <li class="is-active" data-target="23-april"><a>23 April 2020</a></li>
+                    <?php $counter = 0 ?>
+                    <?php foreach ($movies2->getResult() as $movie) : ?>
+                        <?php if ($movie->title == $movies['title']) : ?>
+                            <li class="<?= $counter > 0 ? "no" : "is-active"; ?>" data-target="<?= $movie->show_date; ?>"><a><?= $movie->show_date; ?></a></li>
+                            <?php $counter++; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    <!-- <li class="is-active" data-target="23-april"><a>23 April 2020</a></li>
                     <li data-target="24-april"><a>24 April 2020</a></li>
                     <li data-target="25-april"><a>25 April 2020</a></li>
-                    <li data-target="26-april"><a>26 April 2020</a></li>
+                    <li data-target="26-april"><a>26 April 2020</a></li> -->
                 </ul>
             </div>
             <div class="px-2" id="tab-content">
-                <div id="23-april">
+                <?php $counter2 = 0 ?>
+                <?php foreach ($movies2->getResult() as $movie) : ?>
+                    <?php if ($movie->title == $movies['title']) : ?>
+                        <div id="<?= $movie->show_date; ?>" class="<?= $counter2 > 0 ? "is-hidden" : "no"; ?>">
+                            <h3 class="is-size-5 title"><?= $movie->cinema_name; ?></h3>
+                            <a href="#" id="show-time" class="button is-danger is-outlined mr-4"><?= $movie->show_time; ?></a>
+                        </div>
+                        <?php $counter2++; ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <!-- <div id="23-april">
                     <h3 class="is-size-5 title">Grand Indonesia</h3>
                     <a href="#" id="show-time" class="button is-danger is-outlined mr-4">11:45</a>
                     <a href="#" class="button is-danger is-outlined mr-4 ">13:25</a>
@@ -60,11 +77,11 @@
                     <h3 class="is-size-5 title">Sunter Mall</h3>
                     <a href="#" class="button is-danger is-outlined mr-4">11:45</a>
                     <a href="#" class="button is-danger is-outlined mr-4 ">13:25</a>
-                    <a href="#" class="button is-danger is-outlined mr-4">15:55</a>
-                </div>
+                    <a href="#" class="button is-danger is-outlined mr-4">15:55</a> -->
             </div>
         </div>
     </div>
+</div>
 </div>
 
 </form>

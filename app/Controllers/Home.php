@@ -6,11 +6,18 @@ class Home extends BaseController
 {
 	public function index()
 	{
-		$model = new \App\Models\MoviesModel;
+		$model = new \App\Models\TitlesModel;
 		$data = $model->findAll();
+		$db = \Config\Database::connect();
+		$query = $db->query('SELECT `titles`.`title`, `show_date`.`show_date`, `cinema`.`cinema_name`, `show_time`.`show_time`
+		FROM `titles` INNER JOIN (`show_time` INNER JOIN (`show_date` INNER JOIN (`cinema` INNER JOIN `movies` ON `cinema`.`id` = `movies`.`cinema_id`) ON `show_date`.`id` = `movies`.`show_date_id`) ON `show_time`.`id` = `movies`.`show_time_id`) ON `titles`.`id` = `movies`.`titles_id`;
+		');
+		// $builder->join('titles', 'titles.id = movies.titles_id');
+
 
 		return view("Home/index", [
-			'movies' => $data
+			'movies' => $data,
+			'movies2' => $query
 		]);
 		return view("Home/index");
 	}
